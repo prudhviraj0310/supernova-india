@@ -23,7 +23,7 @@ const tone: Record<string, string> = {
 };
 
 function Blocks() {
-  const [sel, setSel] = useState(components[0]);
+  const [sel, setSel] = useState(components[0]!);
   const [on, setOn] = useState(true);
   return (
     <>
