@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AiRouteImport } from './routes/ai'
+import { Route as ComponentsRouteImport } from './routes/components'
+import { Route as ExportRouteImport } from './routes/export'
+import { Route as FigmaRouteImport } from './routes/figma'
+import { Route as GuideRouteImport } from './routes/guide'
+import { Route as HealthRouteImport } from './routes/health'
+import { Route as StylesRouteImport } from './routes/styles'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiRoute = AiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComponentsRoute = ComponentsRouteImport.update({
+  id: '/components',
+  path: '/components',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExportRoute = ExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FigmaRoute = FigmaRouteImport.update({
+  id: '/figma',
+  path: '/figma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideRoute = GuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StylesRoute = StylesRouteImport.update({
+  id: '/styles',
+  path: '/styles',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/components': typeof ComponentsRoute
+  '/export': typeof ExportRoute
+  '/figma': typeof FigmaRoute
+  '/guide': typeof GuideRoute
+  '/health': typeof HealthRoute
+  '/styles': typeof StylesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/components': typeof ComponentsRoute
+  '/export': typeof ExportRoute
+  '/figma': typeof FigmaRoute
+  '/guide': typeof GuideRoute
+  '/health': typeof HealthRoute
+  '/styles': typeof StylesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/components': typeof ComponentsRoute
+  '/export': typeof ExportRoute
+  '/figma': typeof FigmaRoute
+  '/guide': typeof GuideRoute
+  '/health': typeof HealthRoute
+  '/styles': typeof StylesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ai'
+    | '/components'
+    | '/export'
+    | '/figma'
+    | '/guide'
+    | '/health'
+    | '/styles'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ai'
+    | '/components'
+    | '/export'
+    | '/figma'
+    | '/guide'
+    | '/health'
+    | '/styles'
+  id:
+    | '__root__'
+    | '/'
+    | '/ai'
+    | '/components'
+    | '/export'
+    | '/figma'
+    | '/guide'
+    | '/health'
+    | '/styles'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiRoute: typeof AiRoute
+  ComponentsRoute: typeof ComponentsRoute
+  ExportRoute: typeof ExportRoute
+  FigmaRoute: typeof FigmaRoute
+  GuideRoute: typeof GuideRoute
+  HealthRoute: typeof HealthRoute
+  StylesRoute: typeof StylesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai': {
+      id: '/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components': {
+      id: '/components'
+      path: '/components'
+      fullPath: '/components'
+      preLoaderRoute: typeof ComponentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/export': {
+      id: '/export'
+      path: '/export'
+      fullPath: '/export'
+      preLoaderRoute: typeof ExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/figma': {
+      id: '/figma'
+      path: '/figma'
+      fullPath: '/figma'
+      preLoaderRoute: typeof FigmaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide': {
+      id: '/guide'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/styles': {
+      id: '/styles'
+      path: '/styles'
+      fullPath: '/styles'
+      preLoaderRoute: typeof StylesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiRoute: AiRoute,
+  ComponentsRoute: ComponentsRoute,
+  ExportRoute: ExportRoute,
+  FigmaRoute: FigmaRoute,
+  GuideRoute: GuideRoute,
+  HealthRoute: HealthRoute,
+  StylesRoute: StylesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
