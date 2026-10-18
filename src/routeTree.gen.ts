@@ -15,6 +15,7 @@ import { Route as ComponentsRouteImport } from './routes/components'
 import { Route as ExportRouteImport } from './routes/export'
 import { Route as FigmaRouteImport } from './routes/figma'
 import { Route as GuideRouteImport } from './routes/guide'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as StylesRouteImport } from './routes/styles'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const GuideRoute = GuideRouteImport.update({
   path: '/guide',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StylesRoute = StylesRouteImport.update({
   id: '/styles',
   path: '/styles',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/export': typeof ExportRoute
   '/figma': typeof FigmaRoute
   '/guide': typeof GuideRoute
+  '/health': typeof HealthRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/export': typeof ExportRoute
   '/figma': typeof FigmaRoute
   '/guide': typeof GuideRoute
+  '/health': typeof HealthRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRoutesById {
@@ -79,14 +87,30 @@ export interface FileRoutesById {
   '/export': typeof ExportRoute
   '/figma': typeof FigmaRoute
   '/guide': typeof GuideRoute
+  '/health': typeof HealthRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/ai' | '/components' | '/export' | '/figma' | '/guide' | '/styles'
+    | '/'
+    | '/ai'
+    | '/components'
+    | '/export'
+    | '/figma'
+    | '/guide'
+    | '/health'
+    | '/styles'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ai' | '/components' | '/export' | '/figma' | '/guide' | '/styles'
+  to:
+    | '/'
+    | '/ai'
+    | '/components'
+    | '/export'
+    | '/figma'
+    | '/guide'
+    | '/health'
+    | '/styles'
   id:
     | '__root__'
     | '/'
@@ -95,6 +119,7 @@ export interface FileRouteTypes {
     | '/export'
     | '/figma'
     | '/guide'
+    | '/health'
     | '/styles'
   fileRoutesById: FileRoutesById
 }
@@ -105,6 +130,7 @@ export interface RootRouteChildren {
   ExportRoute: typeof ExportRoute
   FigmaRoute: typeof FigmaRoute
   GuideRoute: typeof GuideRoute
+  HealthRoute: typeof HealthRoute
   StylesRoute: typeof StylesRoute
 }
 
@@ -152,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuideRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/styles': {
       id: '/styles'
       path: '/styles'
@@ -169,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExportRoute: ExportRoute,
   FigmaRoute: FigmaRoute,
   GuideRoute: GuideRoute,
+  HealthRoute: HealthRoute,
   StylesRoute: StylesRoute,
 }
 export const routeTree = rootRouteImport
