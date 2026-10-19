@@ -2,9 +2,10 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import {
   Home, Palette, Boxes, Code2, Figma, Bot, BookOpen, HeartPulse, Search, Bell, Sparkles,
+  FileText, Plug, Newspaper, Users, Building2, GraduationCap, Layers, BrainCircuit,
 } from "lucide-react";
 
-const nav = [
+const productNav = [
   { to: "/", label: "Home", icon: Home },
   { to: "/styles", label: "Colours & styles", icon: Palette },
   { to: "/components", label: "Building blocks", icon: Boxes },
@@ -15,9 +16,34 @@ const nav = [
   { to: "/health", label: "System health", icon: HeartPulse },
 ] as const;
 
+const resourceNav = [
+  { to: "/docs", label: "Documentation", icon: FileText },
+  { to: "/integrations", label: "Integrations", icon: Plug },
+  { to: "/dsm", label: "Design system mgmt", icon: Layers },
+  { to: "/for-ai", label: "For AI", icon: BrainCircuit },
+  { to: "/contexts-101", label: "Contexts 101", icon: GraduationCap },
+  { to: "/learn", label: "Learn", icon: BookOpen },
+  { to: "/blog", label: "Blog", icon: Newspaper },
+  { to: "/customers", label: "Customers", icon: Users },
+  { to: "/enterprise", label: "Enterprise", icon: Building2 },
+] as const;
+
+const allNav = [...productNav, ...resourceNav];
+
+function NavIcon({ n, path }: { n: (typeof allNav)[number]; path: string }) {
+  const active = n.to === path;
+  return (
+    <Link to={n.to} title={n.label} aria-label={n.label}
+      className={`group relative grid h-11 w-11 place-items-center rounded-full transition ${active ? "bg-primary text-primary-foreground shadow-lg" : "glass !rounded-full text-muted-foreground hover:text-foreground"}`}>
+      <n.icon className="h-[18px] w-[18px]" />
+      <span className="pointer-events-none absolute left-14 z-20 whitespace-nowrap rounded-lg bg-foreground px-2.5 py-1 text-xs text-background opacity-0 transition group-hover:opacity-100">{n.label}</span>
+    </Link>
+  );
+}
+
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const current = nav.find((n) => n.to === path);
+  const current = allNav.find((n) => n.to === path);
   return (
     <div className="min-h-screen p-2 sm:p-4">
       <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[28px] bg-surface shadow-[var(--shadow-float)]">
@@ -33,27 +59,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex shrink-0 items-center gap-2">
             <button aria-label="Search" className="glass grid h-10 w-10 place-items-center !rounded-full"><Search className="h-4 w-4" /></button>
             <button aria-label="Notifications" className="glass grid h-10 w-10 place-items-center !rounded-full"><Bell className="h-4 w-4" /></button>
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-accent text-sm font-bold text-accent-foreground">PN</span>
+            <Link to="/login" className="glass hidden h-10 items-center rounded-full px-4 text-sm font-medium sm:flex">Log in</Link>
+            <Link to="/signup" className="hidden h-10 items-center rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground sm:flex">Sign up free</Link>
           </div>
         </header>
         <div className="relative flex gap-4 px-3 pb-20 sm:px-5 md:pb-5">
           <nav className="hidden w-14 shrink-0 flex-col items-center gap-3 pt-6 md:flex">
-            {nav.map((n) => {
-              const active = n.to === path;
-              return (
-                <Link key={n.to} to={n.to} title={n.label} aria-label={n.label}
-                  className={`group relative grid h-11 w-11 place-items-center rounded-full transition ${active ? "bg-primary text-primary-foreground shadow-lg" : "glass !rounded-full text-muted-foreground hover:text-foreground"}`}>
-                  <n.icon className="h-[18px] w-[18px]" />
-                  <span className="pointer-events-none absolute left-14 z-20 whitespace-nowrap rounded-lg bg-foreground px-2.5 py-1 text-xs text-background opacity-0 transition group-hover:opacity-100">{n.label}</span>
-                </Link>
-              );
-            })}
+            {productNav.map((n) => <NavIcon key={n.to} n={n} path={path} />)}
+            <span className="my-1 h-px w-8 bg-border" aria-hidden />
+            {resourceNav.map((n) => <NavIcon key={n.to} n={n} path={path} />)}
           </nav>
           <main className="min-w-0 flex-1">{children}</main>
         </div>
       </div>
       <nav className="glass fixed inset-x-3 bottom-3 z-30 flex justify-between overflow-x-auto p-1.5 md:hidden">
-        {nav.map((n) => (
+        {productNav.map((n) => (
           <Link key={n.to} to={n.to} aria-label={n.label}
             className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${n.to === path ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>
             <n.icon className="h-[18px] w-[18px]" />
