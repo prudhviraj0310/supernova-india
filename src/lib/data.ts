@@ -87,3 +87,84 @@ export const healthChecks = [
   { area: "Database", status: "ok", note: "Embedded database with migrations" },
   { area: "Security", status: "bad", note: "Secret files (.env, .pem) committed to the repo" },
 ] as const;
+
+// ---- New page data (Supernova-for-India site) ----
+
+export const docSections = [
+  {
+    group: "Start here",
+    items: [
+      { title: "What is Nexus?", mins: 3, desc: "One place for your brand's colours, text styles and building blocks." },
+      { title: "Set up your first design system", mins: 8, desc: "From empty workspace to a working library in under 10 minutes." },
+      { title: "Invite your team", mins: 2, desc: "Designers, developers and managers — who can do what." },
+    ],
+  },
+  {
+    group: "Everyday work",
+    items: [
+      { title: "Add and edit styles", mins: 5, desc: "Colours, spacing, fonts — with plain-English names." },
+      { title: "Sync with Figma", mins: 6, desc: "Pull changes from Figma and review them before applying." },
+      { title: "Export code for your app", mins: 4, desc: "Tailwind, CSS, TypeScript, Swift, Kotlin — pick and download." },
+      { title: "Connect AI tools", mins: 5, desc: "Let Cursor, Claude or Copilot read your design system." },
+    ],
+  },
+  {
+    group: "For developers",
+    items: [
+      { title: "API reference", mins: 10, desc: "Every endpoint, with copy-paste examples." },
+      { title: "Webhooks", mins: 6, desc: "Get notified in Slack or your CI when styles change." },
+      { title: "Self-hosting notes", mins: 7, desc: "Run Nexus on your own servers in India." },
+    ],
+  },
+];
+
+export const integrations = [
+  { name: "Figma", desc: "Two-way sync of colours, text styles and components.", status: "Needs access key", icon: "🎨" },
+  { name: "GitHub", desc: "Open pull requests with updated design code automatically.", status: "Not connected", icon: "🐙" },
+  { name: "VS Code", desc: "See your tokens as autocomplete while you code.", status: "Ready", icon: "💻" },
+  { name: "Cursor", desc: "AI coding that follows your design system rules.", status: "Ready", icon: "🤖" },
+  { name: "Storybook", desc: "Publish your component docs straight to Storybook.", status: "Ready", icon: "📕" },
+  { name: "Slack", desc: "Get a message when someone changes a style.", status: "Ready", icon: "💬" },
+];
+
+export const blogPosts = [
+  {
+    title: "Why Indian fintech apps need a design system more than anyone",
+    excerpt: "When your app moves money in ₹, one wrong colour on a Pay button costs trust. Here's how design systems prevent that.",
+    author: "Ananya Sharma", date: "14 Oct 2026", mins: 6, tag: "Fintech", featured: true,
+  },
+  { title: "Design tokens, explained with a thali", excerpt: "Primitives, semantics, components — the easiest analogy you'll ever read.", author: "Rahul Verma", date: "9 Oct 2026", mins: 4, tag: "Basics" },
+  { title: "Supporting 6 Indian languages without breaking your UI", excerpt: "Devanagari text is taller. Tamil words are longer. Plan your type scale for it.", author: "Priya Nair", date: "2 Oct 2026", mins: 7, tag: "Localisation" },
+  { title: "From Figma to production in one afternoon", excerpt: "A real walkthrough: sync, review, export, ship.", author: "Arjun Mehta", date: "25 Sep 2026", mins: 5, tag: "Workflow" },
+  { title: "Dark mode for Indian summers (and power cuts)", excerpt: "Why battery-saving dark UIs matter more here, and how to tokenise them.", author: "Kavya Reddy", date: "18 Sep 2026", mins: 5, tag: "Theming" },
+];
+
+export const customers = [
+  { company: "PayKaro", industry: "Fintech · Bengaluru", quote: "Our UPI checkout used to have 4 different button styles. Now it's one, everywhere.", person: "Rohan Iyer, Head of Design", stat: "60% faster releases" },
+  { company: "Seekho Academy", industry: "Edtech · Delhi NCR", quote: "We ship the same look to Android, iOS and web from one place. Students never notice a seam.", person: "Meera Krishnan, Product Lead", stat: "3 platforms, 1 source" },
+  { company: "BazaarDirect", industry: "Commerce · Mumbai", quote: "Festive-sale theming used to take two weeks. With tokens, Diwali mode is a one-line switch.", person: "Aditya Joshi, CTO", stat: "2 weeks → 1 day" },
+  { company: "SwasthCare", industry: "Healthtech · Hyderabad", quote: "Accessibility contrast checks are built in. Our elderly users thank us.", person: "Dr. Nandini Rao, Founder", stat: "WCAG AA by default" },
+];
+
+export const enterpriseFeatures = [
+  { title: "Single sign-on (SSO)", desc: "Your team logs in with your company Google or Okta account. No new passwords." },
+  { title: "Audit log", desc: "See exactly who changed what and when — important for regulated industries like banking." },
+  { title: "India data residency", desc: "Your data stays in Indian data centres (Mumbai region), meeting RBI and MeitY expectations." },
+  { title: "Dedicated support", desc: "A named support engineer, IST working hours, WhatsApp/phone support in English and Hindi." },
+  { title: "Custom roles", desc: "Decide who can view, edit or publish — down to a single design token." },
+  { title: "Uptime promise", desc: "99.9% uptime with a written agreement, or you get money back." },
+];
+
+export const learnCourses = [
+  { title: "Design systems from zero", lessons: 12, mins: 90, level: "Beginner", desc: "No jargon. Start from 'what is a token?' and end with a working library." },
+  { title: "Figma to code, the right way", lessons: 8, mins: 60, level: "Intermediate", desc: "Set up sync so designers and developers stop stepping on each other." },
+  { title: "Theming & dark mode", lessons: 6, mins: 45, level: "Intermediate", desc: "One brand, many looks — festival themes, dark mode, white-label apps." },
+  { title: "Design systems for AI coding", lessons: 5, mins: 40, level: "Advanced", desc: "Make Cursor and Copilot write UI that matches your brand every time." },
+];
+
+export const contextExplainers = [
+  { term: "Primitive", plain: "The raw ingredient. Like atta, rice, dal — base colours like 'blue 500'.", example: "color.primitive.blue.500 = #3b82f6" },
+  { term: "Semantic token", plain: "The dish you make from ingredients. 'Main brand colour' points to blue 500 — change the blue once, everything updates.", example: "color.brand.primary → blue.500" },
+  { term: "Component", plain: "The served thali. A Button uses semantic tokens, so it always matches the brand.", example: "Button bg → color.brand.primary" },
+  { term: "Context / theme", plain: "The same kitchen, a different menu. Diwali theme, dark mode, or a white-label version for a partner.", example: "theme.diwali overrides brand.primary" },
+];
