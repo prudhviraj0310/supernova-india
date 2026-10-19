@@ -11,11 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AiRouteImport } from './routes/ai'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ComponentsRouteImport } from './routes/components'
+import { Route as Contexts101RouteImport } from './routes/contexts-101'
+import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as DocsRouteImport } from './routes/docs'
+import { Route as DsmRouteImport } from './routes/dsm'
+import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as ExportRouteImport } from './routes/export'
 import { Route as FigmaRouteImport } from './routes/figma'
+import { Route as ForAiRouteImport } from './routes/for-ai'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as HealthRouteImport } from './routes/health'
+import { Route as IntegrationsRouteImport } from './routes/integrations'
+import { Route as LearnRouteImport } from './routes/learn'
 import { Route as StylesRouteImport } from './routes/styles'
 
 const IndexRoute = IndexRouteImport.update({
@@ -28,9 +37,39 @@ const AiRoute = AiRouteImport.update({
   path: '/ai',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComponentsRoute = ComponentsRouteImport.update({
   id: '/components',
   path: '/components',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Contexts101Route = Contexts101RouteImport.update({
+  id: '/contexts-101',
+  path: '/contexts-101',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomersRoute = CustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DsmRoute = DsmRouteImport.update({
+  id: '/dsm',
+  path: '/dsm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnterpriseRoute = EnterpriseRouteImport.update({
+  id: '/enterprise',
+  path: '/enterprise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExportRoute = ExportRouteImport.update({
@@ -43,6 +82,11 @@ const FigmaRoute = FigmaRouteImport.update({
   path: '/figma',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForAiRoute = ForAiRouteImport.update({
+  id: '/for-ai',
+  path: '/for-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuideRoute = GuideRouteImport.update({
   id: '/guide',
   path: '/guide',
@@ -51,6 +95,16 @@ const GuideRoute = GuideRouteImport.update({
 const HealthRoute = HealthRouteImport.update({
   id: '/health',
   path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegrationsRoute = IntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StylesRoute = StylesRouteImport.update({
@@ -62,32 +116,59 @@ const StylesRoute = StylesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ai': typeof AiRoute
+  '/blog': typeof BlogRoute
   '/components': typeof ComponentsRoute
+  '/contexts-101': typeof Contexts101Route
+  '/customers': typeof CustomersRoute
+  '/docs': typeof DocsRoute
+  '/dsm': typeof DsmRoute
+  '/enterprise': typeof EnterpriseRoute
   '/export': typeof ExportRoute
   '/figma': typeof FigmaRoute
+  '/for-ai': typeof ForAiRoute
   '/guide': typeof GuideRoute
   '/health': typeof HealthRoute
+  '/integrations': typeof IntegrationsRoute
+  '/learn': typeof LearnRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ai': typeof AiRoute
+  '/blog': typeof BlogRoute
   '/components': typeof ComponentsRoute
+  '/contexts-101': typeof Contexts101Route
+  '/customers': typeof CustomersRoute
+  '/docs': typeof DocsRoute
+  '/dsm': typeof DsmRoute
+  '/enterprise': typeof EnterpriseRoute
   '/export': typeof ExportRoute
   '/figma': typeof FigmaRoute
+  '/for-ai': typeof ForAiRoute
   '/guide': typeof GuideRoute
   '/health': typeof HealthRoute
+  '/integrations': typeof IntegrationsRoute
+  '/learn': typeof LearnRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ai': typeof AiRoute
+  '/blog': typeof BlogRoute
   '/components': typeof ComponentsRoute
+  '/contexts-101': typeof Contexts101Route
+  '/customers': typeof CustomersRoute
+  '/docs': typeof DocsRoute
+  '/dsm': typeof DsmRoute
+  '/enterprise': typeof EnterpriseRoute
   '/export': typeof ExportRoute
   '/figma': typeof FigmaRoute
+  '/for-ai': typeof ForAiRoute
   '/guide': typeof GuideRoute
   '/health': typeof HealthRoute
+  '/integrations': typeof IntegrationsRoute
+  '/learn': typeof LearnRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRouteTypes {
@@ -95,42 +176,78 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ai'
+    | '/blog'
     | '/components'
+    | '/contexts-101'
+    | '/customers'
+    | '/docs'
+    | '/dsm'
+    | '/enterprise'
     | '/export'
     | '/figma'
+    | '/for-ai'
     | '/guide'
     | '/health'
+    | '/integrations'
+    | '/learn'
     | '/styles'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/ai'
+    | '/blog'
     | '/components'
+    | '/contexts-101'
+    | '/customers'
+    | '/docs'
+    | '/dsm'
+    | '/enterprise'
     | '/export'
     | '/figma'
+    | '/for-ai'
     | '/guide'
     | '/health'
+    | '/integrations'
+    | '/learn'
     | '/styles'
   id:
     | '__root__'
     | '/'
     | '/ai'
+    | '/blog'
     | '/components'
+    | '/contexts-101'
+    | '/customers'
+    | '/docs'
+    | '/dsm'
+    | '/enterprise'
     | '/export'
     | '/figma'
+    | '/for-ai'
     | '/guide'
     | '/health'
+    | '/integrations'
+    | '/learn'
     | '/styles'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AiRoute: typeof AiRoute
+  BlogRoute: typeof BlogRoute
   ComponentsRoute: typeof ComponentsRoute
+  Contexts101Route: typeof Contexts101Route
+  CustomersRoute: typeof CustomersRoute
+  DocsRoute: typeof DocsRoute
+  DsmRoute: typeof DsmRoute
+  EnterpriseRoute: typeof EnterpriseRoute
   ExportRoute: typeof ExportRoute
   FigmaRoute: typeof FigmaRoute
+  ForAiRoute: typeof ForAiRoute
   GuideRoute: typeof GuideRoute
   HealthRoute: typeof HealthRoute
+  IntegrationsRoute: typeof IntegrationsRoute
+  LearnRoute: typeof LearnRoute
   StylesRoute: typeof StylesRoute
 }
 
@@ -150,11 +267,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/components': {
       id: '/components'
       path: '/components'
       fullPath: '/components'
       preLoaderRoute: typeof ComponentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contexts-101': {
+      id: '/contexts-101'
+      path: '/contexts-101'
+      fullPath: '/contexts-101'
+      preLoaderRoute: typeof Contexts101RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customers': {
+      id: '/customers'
+      path: '/customers'
+      fullPath: '/customers'
+      preLoaderRoute: typeof CustomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dsm': {
+      id: '/dsm'
+      path: '/dsm'
+      fullPath: '/dsm'
+      preLoaderRoute: typeof DsmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/enterprise': {
+      id: '/enterprise'
+      path: '/enterprise'
+      fullPath: '/enterprise'
+      preLoaderRoute: typeof EnterpriseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/export': {
@@ -171,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FigmaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/for-ai': {
+      id: '/for-ai'
+      path: '/for-ai'
+      fullPath: '/for-ai'
+      preLoaderRoute: typeof ForAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guide': {
       id: '/guide'
       path: '/guide'
@@ -183,6 +349,20 @@ declare module '@tanstack/react-router' {
       path: '/health'
       fullPath: '/health'
       preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integrations': {
+      id: '/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof IntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/styles': {
@@ -198,11 +378,20 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiRoute: AiRoute,
+  BlogRoute: BlogRoute,
   ComponentsRoute: ComponentsRoute,
+  Contexts101Route: Contexts101Route,
+  CustomersRoute: CustomersRoute,
+  DocsRoute: DocsRoute,
+  DsmRoute: DsmRoute,
+  EnterpriseRoute: EnterpriseRoute,
   ExportRoute: ExportRoute,
   FigmaRoute: FigmaRoute,
+  ForAiRoute: ForAiRoute,
   GuideRoute: GuideRoute,
   HealthRoute: HealthRoute,
+  IntegrationsRoute: IntegrationsRoute,
+  LearnRoute: LearnRoute,
   StylesRoute: StylesRoute,
 }
 export const routeTree = rootRouteImport
