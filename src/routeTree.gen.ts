@@ -25,6 +25,8 @@ import { Route as GuideRouteImport } from './routes/guide'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as LearnRouteImport } from './routes/learn'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as StylesRouteImport } from './routes/styles'
 
 const IndexRoute = IndexRouteImport.update({
@@ -107,6 +109,16 @@ const LearnRoute = LearnRouteImport.update({
   path: '/learn',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StylesRoute = StylesRouteImport.update({
   id: '/styles',
   path: '/styles',
@@ -130,6 +142,8 @@ export interface FileRoutesByFullPath {
   '/health': typeof HealthRoute
   '/integrations': typeof IntegrationsRoute
   '/learn': typeof LearnRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRoutesByTo {
@@ -149,6 +163,8 @@ export interface FileRoutesByTo {
   '/health': typeof HealthRoute
   '/integrations': typeof IntegrationsRoute
   '/learn': typeof LearnRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRoutesById {
@@ -169,6 +185,8 @@ export interface FileRoutesById {
   '/health': typeof HealthRoute
   '/integrations': typeof IntegrationsRoute
   '/learn': typeof LearnRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/styles': typeof StylesRoute
 }
 export interface FileRouteTypes {
@@ -190,6 +208,8 @@ export interface FileRouteTypes {
     | '/health'
     | '/integrations'
     | '/learn'
+    | '/login'
+    | '/signup'
     | '/styles'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -209,6 +229,8 @@ export interface FileRouteTypes {
     | '/health'
     | '/integrations'
     | '/learn'
+    | '/login'
+    | '/signup'
     | '/styles'
   id:
     | '__root__'
@@ -228,6 +250,8 @@ export interface FileRouteTypes {
     | '/health'
     | '/integrations'
     | '/learn'
+    | '/login'
+    | '/signup'
     | '/styles'
   fileRoutesById: FileRoutesById
 }
@@ -248,6 +272,8 @@ export interface RootRouteChildren {
   HealthRoute: typeof HealthRoute
   IntegrationsRoute: typeof IntegrationsRoute
   LearnRoute: typeof LearnRoute
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
   StylesRoute: typeof StylesRoute
 }
 
@@ -365,6 +391,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/styles': {
       id: '/styles'
       path: '/styles'
@@ -392,6 +432,8 @@ const rootRouteChildren: RootRouteChildren = {
   HealthRoute: HealthRoute,
   IntegrationsRoute: IntegrationsRoute,
   LearnRoute: LearnRoute,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
   StylesRoute: StylesRoute,
 }
 export const routeTree = rootRouteImport
