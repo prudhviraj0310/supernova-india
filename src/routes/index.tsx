@@ -1,12 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowUpRight, Eye, EyeOff, RefreshCw, Download, Bot, Plus, Palette, Boxes, FileCode2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/AppShell";
 import { activity, components, tokens } from "@/lib/data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Nexus — Your design system, made simple" },
       { name: "description", content: "One place for your brand colours, building blocks and ready-to-use code for web, iOS and Android." },
       { property: "og:title", content: "Nexus — Your design system, made simple" },
@@ -31,9 +34,9 @@ function Home() {
           </div>
           <div className="mt-4 flex items-center gap-3">
             <span className="text-5xl font-light tracking-tight">{show ? tokens.length : "••"}</span>
-            <button aria-label="Toggle" onClick={() => setShow(!show)} className="text-muted-foreground">{show ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}</button>
+            <Button variant="ghost" size="icon" aria-label="Toggle style count" onClick={() => setShow(!show)} className="text-muted-foreground">{show ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}</Button>
           </div>
-          <div className="mt-2 inline-flex rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">All in sync with Figma · 2 min ago</div>
+          <div className="mt-2 inline-flex rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">Sample library · Figma not connected</div>
           <p className="mt-6 mb-3 text-xs font-semibold">Quick actions</p>
           <div className="grid grid-cols-4 gap-2 text-center text-xs">
             {[

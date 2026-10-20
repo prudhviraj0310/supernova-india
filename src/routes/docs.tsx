@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Search, Clock } from "lucide-react";
 import { Card, PageIntro } from "@/components/AppShell";
 import { docSections } from "@/lib/data";
+import { Button } from "@/components/ui/button";
+import { ReadingDialog } from "@/components/ReadingDialog";
+import { guideBodies } from "@/lib/reading";
 
 export const Route = createFileRoute("/docs")({
   head: () => ({
@@ -20,6 +23,7 @@ export const Route = createFileRoute("/docs")({
 
 function DocsPage() {
   const [q, setQ] = useState("");
+  const [selected, setSelected] = useState<string | null>(null);
   const query = q.trim().toLowerCase();
   const sections = docSections
     .map((s) => ({
@@ -30,12 +34,13 @@ function DocsPage() {
 
   return (
     <div>
-      <PageIntro title="Documentation" hint="Every guide is written in plain language. No jargon — if you can use UPI, you can follow these." />
+      <PageIntro title="Documentation" hint="Start with the basics, then explore styles, Figma reviews and code exports." />
       <Card className="mb-4">
         <label className="flex items-center gap-3">
           <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
           <input
             value={q}
+            aria-label="Search guides"
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search guides… try 'Figma' or 'export'"
             className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
@@ -50,18 +55,20 @@ function DocsPage() {
           <Card key={s.group} title={s.group}>
             <ul className="space-y-3">
               {s.items.map((i) => (
-                <li key={i.title} className="tile cursor-pointer p-3 transition hover:shadow-md">
+                <li key={i.title} className="tile p-3">
                   <p className="text-sm font-semibold">{i.title}</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">{i.desc}</p>
                   <p className="mt-1.5 flex items-center gap-1 text-[11px] text-muted-foreground">
                     <Clock className="h-3 w-3" /> {i.mins} min read
                   </p>
+                  <Button variant="link" size="sm" className="mt-2 px-0" onClick={() => setSelected(i.title)}>Read guide</Button>
                 </li>
               ))}
             </ul>
           </Card>
         ))}
       </div>
+      <ReadingDialog title={selected} paragraphs={selected ? guideBodies[selected] ?? [] : []} onClose={() => setSelected(null)} />
     </div>
   );
 }

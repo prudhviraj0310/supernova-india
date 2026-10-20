@@ -79,13 +79,13 @@ export function generateCode(format: FormatId): string {
 }
 
 export const healthChecks = [
-  { area: "Colour & style library", status: "ok", note: "19 styles load and resolve correctly" },
-  { area: "Code export (6 formats)", status: "ok", note: "Tailwind, CSS, TS, JSON, Swift, Kotlin" },
-  { area: "Figma sync", status: "warn", note: "Needs a Figma access key to go live" },
-  { area: "GitHub delivery", status: "warn", note: "Needs GitHub connection to open pull requests" },
-  { area: "AI helper (MCP server)", status: "ok", note: "8 tools exposed to Cursor / Claude" },
-  { area: "Database", status: "ok", note: "Embedded database with migrations" },
-  { area: "Security", status: "bad", note: "Secret files (.env, .pem) committed to the repo" },
+  { area: "Colour & style library", status: "ok", note: "19 sample styles available to browse" },
+  { area: "Code export (6 formats)", status: "ok", note: "Local download of the sample library" },
+  { area: "Figma sync", status: "warn", note: "Demonstration only — no live Figma connection" },
+  { area: "GitHub delivery", status: "warn", note: "Not connected — automatic pull requests unavailable" },
+  { area: "AI helper", status: "warn", note: "Capability overview only — no hosted MCP service" },
+  { area: "Accounts & storage", status: "warn", note: "Not connected — no accounts or saved workspaces" },
+  { area: "Service security", status: "warn", note: "No live service security audit is available in this preview" },
 ] as const;
 
 // ---- New page data (Supernova-for-India site) ----
@@ -147,12 +147,12 @@ export const customers = [
 ];
 
 export const enterpriseFeatures = [
-  { title: "Single sign-on (SSO)", desc: "Your team logs in with your company Google or Okta account. No new passwords." },
-  { title: "Audit log", desc: "See exactly who changed what and when — important for regulated industries like banking." },
-  { title: "India data residency", desc: "Your data stays in Indian data centres (Mumbai region), meeting RBI and MeitY expectations." },
-  { title: "Dedicated support", desc: "A named support engineer, IST working hours, WhatsApp/phone support in English and Hindi." },
-  { title: "Custom roles", desc: "Decide who can view, edit or publish — down to a single design token." },
-  { title: "Uptime promise", desc: "99.9% uptime with a written agreement, or you get money back." },
+  { title: "Single sign-on (SSO)", desc: "Planned: sign in through your company identity provider. Not connected yet." },
+  { title: "Audit log", desc: "Planned: a history of who changed what and when. No workspace history is stored yet." },
+  { title: "India data residency", desc: "Under consideration: an India hosting option. No hosting region or regulatory compliance is guaranteed." },
+  { title: "Dedicated support", desc: "Planned: support for Indian teams. Support contacts, languages and hours are not confirmed." },
+  { title: "Custom roles", desc: "Planned: separate view, edit and publish permissions. This preview has no access-control service." },
+  { title: "Service agreement", desc: "Not available yet. No uptime commitment or service-level agreement is offered in this preview." },
 ];
 
 export const learnCourses = [

@@ -1,4 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ReadingDialog } from "@/components/ReadingDialog";
 import { Card, PageIntro } from "@/components/AppShell";
 import { integrations } from "@/lib/data";
 
@@ -17,35 +20,34 @@ export const Route = createFileRoute("/integrations")({
 });
 
 function statusStyle(status: string) {
-  if (status === "Ready") return "bg-emerald-500/15 text-emerald-700";
-  return "bg-amber-500/15 text-amber-700";
+  if (status === "Ready") return "bg-success-soft text-success";
+  return "bg-warning-soft text-warning";
 }
 
 function IntegrationsPage() {
+  const [selected, setSelected] = useState<string | null>(null);
   return (
     <div>
-      <PageIntro title="Integrations" hint="Nexus talks to the tools your team already uses. Connect once — everything stays in sync after that." />
+      <PageIntro title="Integrations" hint="Explore connections for the tools your team uses. No external tools are connected in this preview." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {integrations.map((i) => (
           <Card key={i.name}>
             <div className="flex items-start justify-between gap-2">
               <span className="text-2xl" aria-hidden>{i.icon}</span>
-              <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${statusStyle(i.status)}`}>{i.status}</span>
+              <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${statusStyle("Planned")}`}>Not connected</span>
             </div>
             <h2 className="mt-3 text-base font-semibold">{i.name}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{i.desc}</p>
-            <button className="mt-4 h-9 w-full rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-              {i.status === "Ready" ? "Connect" : "Set up"}
-            </button>
+            {i.name === "Figma" ? <Button asChild className="mt-4 w-full"><Link to="/figma">Preview sync</Link></Button> : <Button variant="outline" className="mt-4 w-full" onClick={() => setSelected(i.name)}>Connection details</Button>}
           </Card>
         ))}
       </div>
       <Card className="mt-4" title="Don't see your tool?">
         <p className="text-sm text-muted-foreground">
-          Nexus has an open API and webhooks, so your developers can connect anything — Jira, Linear, your CI pipeline, even a WhatsApp bot.
-          Check the <span className="font-medium text-foreground">API reference</span> in Documentation.
+          A public API and webhooks are not available yet. Read the <Link to="/docs" className="font-medium text-primary underline">Documentation</Link> for the current preview limits.
         </p>
       </Card>
+      <ReadingDialog title={selected ? `${selected} connection` : null} paragraphs={[`${selected ?? "This tool"} is not connected to this workspace. No permissions have been requested and no data is being shared.`, selected === "GitHub" ? "You can download a file from Get code and add it to your repository manually. Automatic pull requests require a verified GitHub connection." : "Use the JSON or TypeScript export as a reference in your existing workflow. A live connection requires a connected service and the appropriate permissions."]} onClose={() => setSelected(null)} />
     </div>
   );
 }

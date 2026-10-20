@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrainCircuit, Check } from "lucide-react";
 import { Card, PageIntro } from "@/components/AppShell";
 
@@ -18,9 +18,9 @@ export const Route = createFileRoute("/for-ai")({
 
 const points = [
   { title: "AI writes on-brand code", desc: "When Cursor or Copilot generates a screen, it uses your real tokens — your exact brand blue, your spacing, your radius. No more generic-looking AI output." },
-  { title: "One config, every tool", desc: "Nexus runs an MCP server. Add one small config block to Cursor, Claude Desktop, VS Code or Copilot and they're all connected." },
-  { title: "8 ready-made tools", desc: "AI can list tokens, read component rules, check colour contrast, and even suggest which token to use — all read-only and safe." },
-  { title: "You stay in control", desc: "AI tools can read your design system, never change it. Only your team publishes changes, and every change is reviewed first." },
+  { title: "A shared connection", desc: "A future MCP connection could share your design system with coding assistants. No hosted MCP server is running in this preview." },
+  { title: "Planned tools", desc: "The intended tools cover token lookup, component rules, code export and proposed changes. Availability and permissions need to be implemented and verified." },
+  { title: "Review before publishing", desc: "A connected system should require team approval before publishing proposed changes. This preview has no publishing or access-control service." },
 ];
 
 const config = `{
@@ -36,7 +36,7 @@ const config = `{
 function ForAiPage() {
   return (
     <div>
-      <PageIntro title="Nexus for AI" hint="AI coding tools are fast, but they guess your design. Connect them to Nexus and they stop guessing." />
+      <PageIntro title="Nexus for AI" hint="Give coding assistants clear brand rules rather than asking them to guess. Live AI connections are planned, not available yet." />
       <div className="grid gap-4 sm:grid-cols-2">
         {points.map((p) => (
           <Card key={p.title}>
@@ -48,11 +48,10 @@ function ForAiPage() {
           </Card>
         ))}
       </div>
-      <Card className="mt-4" title="Connect in 1 minute">
-        <p className="mb-3 text-sm text-muted-foreground">Paste this into your AI tool's settings file (works for Cursor, Claude Desktop, VS Code):</p>
-        <pre className="overflow-x-auto rounded-xl bg-foreground p-4 text-xs leading-relaxed text-background">{config}</pre>
+      <Card className="mt-4" title="Start with an exported library">
+        <p className="mb-3 text-sm text-muted-foreground">Download JSON or TypeScript from Get code and give it to your coding assistant as context. No package installation or access token is needed for this preview.</p>
         <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Check className="h-3.5 w-3.5 text-emerald-600" /> Full walkthrough with screenshots is on the AI helper page.
+          <Check className="h-3.5 w-3.5 text-success" /> <Link to="/export" className="text-primary underline">Get the sample token file</Link>
         </p>
       </Card>
     </div>

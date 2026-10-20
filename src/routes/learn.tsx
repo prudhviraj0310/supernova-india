@@ -2,6 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GraduationCap, PlayCircle } from "lucide-react";
 import { Card, PageIntro } from "@/components/AppShell";
 import { learnCourses } from "@/lib/data";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ReadingDialog } from "@/components/ReadingDialog";
+import { lessonBodies } from "@/lib/reading";
 
 export const Route = createFileRoute("/learn")({
   head: () => ({
@@ -18,15 +22,16 @@ export const Route = createFileRoute("/learn")({
 });
 
 function levelStyle(level: string) {
-  if (level === "Beginner") return "bg-emerald-500/15 text-emerald-700";
-  if (level === "Intermediate") return "bg-amber-500/15 text-amber-700";
-  return "bg-rose-500/15 text-rose-700";
+  if (level === "Beginner") return "bg-success-soft text-success";
+  if (level === "Intermediate") return "bg-warning-soft text-warning";
+  return "bg-accent text-accent-foreground";
 }
 
 function LearnPage() {
+  const [selected, setSelected] = useState<string | null>(null);
   return (
     <div>
-      <PageIntro title="Learn design systems" hint="Free courses, made for busy Indian teams. Each lesson is under 10 minutes — finish a course over two chai breaks." />
+      <PageIntro title="Learn design systems" hint="Short written lessons for Indian teams, from shared styles to AI-assisted workflows." />
       <div className="grid gap-4 sm:grid-cols-2">
         {learnCourses.map((c) => (
           <Card key={c.title}>
@@ -37,20 +42,18 @@ function LearnPage() {
             <h2 className="mt-3 text-base font-semibold">{c.title}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{c.desc}</p>
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-xs text-muted-foreground">{c.lessons} lessons · {c.mins} min total</p>
-              <button className="flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
-                <PlayCircle className="h-4 w-4" /> Start
-              </button>
+              <p className="text-xs text-muted-foreground">Introductory lesson · 3 min read</p>
+              <Button size="sm" onClick={() => setSelected(c.title)}><PlayCircle /> Start</Button>
             </div>
           </Card>
         ))}
       </div>
       <Card className="mt-4" title="Live workshops">
         <p className="text-sm text-muted-foreground">
-          We run a free online workshop on the first Saturday of every month, 11 AM IST, in English with Hindi Q&A.
-          Next one: <span className="font-medium text-foreground">Design tokens for beginners</span>.
+          No live workshops are scheduled yet. Start with the written lessons above.
         </p>
       </Card>
+      <ReadingDialog title={selected} paragraphs={selected ? lessonBodies[selected] ?? [] : []} onClose={() => setSelected(null)} />
     </div>
   );
 }
