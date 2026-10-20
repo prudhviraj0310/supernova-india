@@ -22,7 +22,7 @@ function Health() {
   const ok = healthChecks.filter((h) => h.status === "ok").length;
   return (
     <>
-      <PageIntro title="System health" hint="We ran the full automated test suite: 298 of 298 checks passed across 51 test files." />
+      <PageIntro title="System health" hint="Current preview capabilities and setup limits. This is not live service monitoring." />
       <div className="grid gap-4 lg:grid-cols-12">
         <Card className="lg:col-span-4">
           <p className="text-xs text-muted-foreground">Overall</p>

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/enterprise")({
   head: () => ({
     meta: [
       { title: "Enterprise — Nexus Design OS" },
-      { name: "description", content: "SSO, audit logs, India data residency and dedicated IST support — Nexus for large Indian organisations." },
+      { name: "description", content: "Explore planned security, access and support capabilities for large Indian organisations using Nexus." },
       { property: "og:title", content: "Enterprise — Nexus Design OS" },
       { property: "og:description", content: "Security, compliance and support for large Indian teams." },
       { property: "og:type", content: "website" },
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/enterprise")({
 function EnterprisePage() {
   return (
     <div>
-      <PageIntro title="Nexus for Enterprise" hint="For banks, large startups and government-adjacent teams that need control, compliance and a human on the phone." />
+      <PageIntro title="Nexus for Enterprise" hint="Planned capabilities for larger Indian teams. These services are not available in this preview." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {enterpriseFeatures.map((f) => (
           <Card key={f.title}>
@@ -31,11 +31,10 @@ function EnterprisePage() {
         ))}
       </div>
       <Card className="gradient-card mt-4 border-0 text-primary-foreground">
-        <h2 className="text-lg font-semibold">Talk to our India team</h2>
+        <h2 className="text-lg font-semibold">Enterprise enquiries</h2>
         <p className="mt-1 max-w-xl text-sm opacity-90">
-          Based in Bengaluru, available 10 AM–7 PM IST. Call +91 80471 20000 or write to enterprise@nexus.design — a real person answers.
+          A verified contact and booking service have not been provided yet. No support hours, hosting region or service agreement are confirmed.
         </p>
-        <button className="mt-4 h-10 rounded-full bg-white px-5 text-sm font-semibold text-primary">Book a 20-minute call</button>
       </Card>
     </div>
   );

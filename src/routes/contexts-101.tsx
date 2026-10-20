@@ -28,7 +28,7 @@ function ContextsPage() {
               <h2 className="text-base font-semibold">{c.term}</h2>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.plain}</p>
-            <code className="mt-3 block rounded-lg bg-secondary px-3 py-2 text-xs text-secondary-foreground">{c.example}</code>
+            <code className="mt-3 block break-words rounded-lg bg-secondary px-3 py-2 text-xs text-secondary-foreground">{c.example}</code>
           </Card>
         ))}
       </div>

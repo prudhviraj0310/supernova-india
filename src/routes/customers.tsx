@@ -7,9 +7,9 @@ export const Route = createFileRoute("/customers")({
   head: () => ({
     meta: [
       { title: "Customers — Nexus Design OS" },
-      { name: "description", content: "How Indian fintech, edtech, commerce and healthtech teams ship consistent design with Nexus." },
+      { name: "description", content: "Illustrative design-system use cases for Indian fintech, edtech, commerce and healthtech teams." },
       { property: "og:title", content: "Customers — Nexus Design OS" },
-      { property: "og:description", content: "Stories from Indian product teams using Nexus." },
+      { property: "og:description", content: "Sample design-system stories for Indian product teams." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/customers")({
 function CustomersPage() {
   return (
     <div>
-      <PageIntro title="Customers" hint="Teams across India — from Bengaluru fintech to Delhi edtech — use Nexus to keep their apps looking like one product, not ten." />
+      <PageIntro title="Customers" hint="Illustrative stories for Indian teams. Company names, quotes and results below are fictional examples, not verified testimonials." />
       <div className="grid gap-4 sm:grid-cols-2">
         {customers.map((c) => (
           <Card key={c.company}>
@@ -40,8 +40,8 @@ function CustomersPage() {
         ))}
       </div>
       <Card className="gradient-card mt-4 border-0 text-primary-foreground">
-        <h2 className="text-lg font-semibold">Want your story here?</h2>
-        <p className="mt-1 max-w-xl text-sm opacity-90">Join hundreds of Indian teams. Sign up free, or talk to us — we reply within one IST working day.</p>
+        <h2 className="text-lg font-semibold">Real stories come next</h2>
+        <p className="mt-1 max-w-xl text-sm opacity-90">Verified customer stories can replace these examples when they are available.</p>
       </Card>
     </div>
   );
