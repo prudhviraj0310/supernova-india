@@ -1,9 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Home, Palette, Boxes, Code2, Figma, Bot, BookOpen, HeartPulse, Search, Bell, Sparkles,
-  FileText, Plug, Newspaper, Users, Building2, GraduationCap, Layers, BrainCircuit,
+  FileText, Plug, Newspaper, Users, Building2, GraduationCap, Layers, BrainCircuit, Menu,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { activity } from "@/lib/data";
 
 const productNav = [
   { to: "/", label: "Home", icon: Home },
@@ -44,6 +48,9 @@ function NavIcon({ n, path }: { n: (typeof allNav)[number]; path: string }) {
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const current = allNav.find((n) => n.to === path);
+  const [panel, setPanel] = useState<"search" | "notifications" | "menu" | null>(null);
+  const [query, setQuery] = useState("");
+  const results = allNav.filter((n) => n.label.toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <div className="min-h-screen p-2 sm:p-4">
       <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[28px] bg-surface shadow-[var(--shadow-float)]">
@@ -57,10 +64,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Link>
           <div className="hidden text-sm text-muted-foreground md:block">{current?.label}</div>
           <div className="flex shrink-0 items-center gap-2">
-            <button aria-label="Search" className="glass grid h-10 w-10 place-items-center !rounded-full"><Search className="h-4 w-4" /></button>
-            <button aria-label="Notifications" className="glass grid h-10 w-10 place-items-center !rounded-full"><Bell className="h-4 w-4" /></button>
-            <Link to="/login" className="glass hidden h-10 items-center rounded-full px-4 text-sm font-medium sm:flex">Log in</Link>
-            <Link to="/signup" className="hidden h-10 items-center rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground sm:flex">Sign up free</Link>
+            <Button aria-label="Search" title="Search pages" variant="outline" size="icon" className="glass h-10 w-10 !rounded-full" onClick={() => { setQuery(""); setPanel("search"); }}><Search /></Button>
+            <Button aria-label="Notifications" title="Recent activity" variant="outline" size="icon" className="glass h-10 w-10 !rounded-full" onClick={() => setPanel("notifications")}><Bell /></Button>
+            <Button asChild variant="outline" className="hidden rounded-full sm:flex"><Link to="/login">Log in</Link></Button>
+            <Button asChild className="hidden rounded-full sm:flex"><Link to="/signup">Join Nexus</Link></Button>
           </div>
         </header>
         <div className="relative flex gap-4 px-3 pb-20 sm:px-5 md:pb-5">
@@ -69,17 +76,33 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="my-1 h-px w-8 bg-border" aria-hidden />
             {resourceNav.map((n) => <NavIcon key={n.to} n={n} path={path} />)}
           </nav>
-          <main className="min-w-0 flex-1">{children}</main>
+          <main className="min-w-0 flex-1">
+            <p className="mb-4 px-1 text-xs text-muted-foreground">Preview workspace · Sample data</p>
+            {children}
+          </main>
         </div>
       </div>
       <nav className="glass fixed inset-x-3 bottom-3 z-30 flex justify-between overflow-x-auto p-1.5 md:hidden">
-        {productNav.map((n) => (
+        {productNav.slice(0, 4).map((n) => (
           <Link key={n.to} to={n.to} aria-label={n.label}
             className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${n.to === path ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>
             <n.icon className="h-[18px] w-[18px]" />
           </Link>
         ))}
+        <Button variant="ghost" size="icon" aria-label="All pages" className="h-11 w-11 shrink-0 rounded-full" onClick={() => setPanel("menu")}><Menu /></Button>
       </nav>
+      <Dialog open={panel !== null} onOpenChange={(open) => { if (!open) setPanel(null); }}>
+        <DialogContent className="max-h-[85dvh] max-w-[calc(100%-2rem)] overflow-y-auto rounded-lg sm:max-w-lg">
+          <DialogTitle>{panel === "search" ? "Search Nexus" : panel === "notifications" ? "Recent activity" : "All pages"}</DialogTitle>
+          <DialogDescription>{panel === "notifications" ? "Sample team activity · times shown in IST" : "Product, resources and your workspace"}</DialogDescription>
+          {panel === "search" && <Input aria-label="Search pages" placeholder="Search pages…" value={query} onChange={(e) => setQuery(e.target.value)} />}
+          {panel === "notifications" ? <ul className="space-y-4">{activity.map((a) => <li key={a.who} className="border-b pb-3"><p className="text-sm font-semibold">{a.who}</p><p className="mt-1 text-sm text-muted-foreground">{a.what}</p><p className="mt-1 text-xs text-muted-foreground">{a.when} IST</p></li>)}</ul> : <div className="grid gap-1 sm:grid-cols-2">
+            {(panel === "search" ? results : allNav).map((n) => <Button key={n.to} asChild variant="ghost" className="justify-start whitespace-normal text-left"><Link to={n.to} onClick={() => setPanel(null)}><n.icon />{n.label}</Link></Button>)}
+            {panel === "search" && results.length === 0 && <p className="py-4 text-sm text-muted-foreground">No pages found for “{query}”.</p>}
+            {panel === "menu" && <><Button asChild variant="outline"><Link to="/login" onClick={() => setPanel(null)}>Log in</Link></Button><Button asChild><Link to="/signup" onClick={() => setPanel(null)}>Join Nexus</Link></Button></>}
+          </div>}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
