@@ -6,6 +6,8 @@ import { healthChecks } from "@/lib/data";
 export const Route = createFileRoute("/health")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "System health — Nexus" },
       { name: "description", content: "A simple check of every part of the system — what works and what still needs setup." },
       { property: "og:title", content: "System health — Nexus" },

@@ -4,6 +4,8 @@ import { Card, PageIntro } from "@/components/AppShell";
 export const Route = createFileRoute("/guide")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Guide — Nexus" },
       { name: "description", content: "New here? A plain-language guide to what Nexus does and how to start." },
       { property: "og:title", content: "Guide — Nexus" },
