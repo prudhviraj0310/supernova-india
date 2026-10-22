@@ -1,8 +1,9 @@
 # Complete Nexus for Indian customers
 
-- [ ] Finish missing login and signup demo pages and restore working navigation.
-- [ ] Make all pages reachable on smaller screens and finish shared search.
-- [ ] Check existing pages, remove misleading unfinished interactions, and verify page metadata.
-- [ ] Run tests and verify all pages and key interactions in the browser.
+- [x] Login and signup pages, working navigation.
+- [x] All pages reachable on small screens; shared search.
+- [x] Page metadata checked on all 19 pages.
+- [x] Tests pass and every page loads in the browser with no errors.
+- [ ] Real backend (accounts, saved styles, Figma/GitHub) — waiting on user decision to enable Lovable Cloud and provide Figma/GitHub access.
 
-Pricing is excluded. Accounts and external tool connections remain demonstrations, as approved; no real services are connected.
+Pricing is excluded.
