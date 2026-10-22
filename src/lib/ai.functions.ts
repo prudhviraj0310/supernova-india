@@ -22,14 +22,39 @@ export const askDesignHelper = createServerFn({ method: "POST" })
 Library styles: ${tokens.map((t) => `${t.path}=${t.value} (${t.plain})`).join("; ")}
 User's own saved styles: ${(mine ?? []).map((s) => `${s.name}=${s.value} (${s.kind})`).join("; ") || "none yet"}
 Building blocks: ${components.map((c) => `${c.name} (${c.status})`).join(", ")}`;
-    const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const res = await fetch("https://ai.gateway.lovable.dev/v1/responses", {
       method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "google/gemini-3-flash-preview", messages: [{ role: "system", content: system }, ...data.messages] }),
+      headers: { Authorization: `Bearer ${key}`, "Lovable-API-Key": key, "X-Lovable-AIG-SDK": "fetch", "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "openai/gpt-6-astra",
+        stream: true,
+        store: false,
+        reasoning: { effort: "low" },
+        instructions: system,
+        input: data.messages.map((m) => ({ role: m.role, content: m.content })),
+      }),
     });
     if (res.status === 429) throw new Error("Too many questions right now. Please wait a minute.");
     if (res.status === 402) throw new Error("AI credits have run out for this workspace.");
-    if (!res.ok) { console.error("AI error", res.status, await res.text()); throw new Error("The AI helper could not answer. Try again."); }
-    const json = (await res.json()) as { choices?: { message?: { content?: string } }[] };
-    return { reply: json.choices?.[0]?.message?.content ?? "No answer." };
+    if (!res.ok || !res.body) { console.error("AI error", res.status, await res.text()); throw new Error("The AI helper could not answer. Try again."); }
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = "", reply = "";
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      const lines = buf.split("\n");
+      buf = lines.pop() ?? "";
+      for (const line of lines) {
+        if (!line.startsWith("data:")) continue;
+        const payload = line.slice(5).trim();
+        if (!payload || payload === "[DONE]") continue;
+        try {
+          const ev = JSON.parse(payload) as { type?: string; delta?: string };
+          if (ev.type === "response.output_text.delta" && ev.delta) reply += ev.delta;
+        } catch { /* partial line */ }
+      }
+    }
+    return { reply: reply || "No answer." };
   });
