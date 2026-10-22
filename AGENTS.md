@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 - Keep content pages as TanStack file routes with individual head metadata; shared navigation lives in AppShell around the root Outlet so every page uses one shell.
-- Account entry pages use a shared AuthPreview and never collect credentials or claim authentication until a real account service is connected.
+- Account entry pages use the shared AuthPreview backed by Lovable Cloud auth (email, Google, Lovable); session state comes from the useAuth hook so the header always reflects it.
+- User-owned data (saved styles) is read/written from the browser client under owner-only RLS; AI calls go through an authenticated server function so the gateway key stays server-side.
 - Search and small-screen navigation use the same navigation list so new pages remain discoverable on every screen.
 - Keep educational reading content in browser-safe data modules and render it through the shared ReadingDialog; preview capabilities must never imply connected services.
