@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { activity } from "@/lib/data";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 
 const productNav = [
   { to: "/", label: "Home", icon: Home },
@@ -50,6 +54,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   const current = allNav.find((n) => n.to === path);
   const [panel, setPanel] = useState<"search" | "notifications" | "menu" | null>(null);
   const [query, setQuery] = useState("");
+  const { user, name } = useAuth();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  async function signOut() { await qc.cancelQueries(); qc.clear(); await supabase.auth.signOut(); setPanel(null); navigate({ to: "/login", replace: true }); }
   const results = allNav.filter((n) => n.label.toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <div className="min-h-screen p-2 sm:p-4">
@@ -66,8 +74,13 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex shrink-0 items-center gap-2">
             <Button aria-label="Search" title="Search pages" variant="outline" size="icon" className="glass h-10 w-10 !rounded-full" onClick={() => { setQuery(""); setPanel("search"); }}><Search /></Button>
             <Button aria-label="Notifications" title="Recent activity" variant="outline" size="icon" className="glass h-10 w-10 !rounded-full" onClick={() => setPanel("notifications")}><Bell /></Button>
-            <Button asChild variant="outline" className="hidden rounded-full sm:flex"><Link to="/login">Log in</Link></Button>
-            <Button asChild className="hidden rounded-full sm:flex"><Link to="/signup">Join Nexus</Link></Button>
+            {user ? <>
+              <span className="hidden max-w-40 truncate text-sm font-medium sm:block">{name}</span>
+              <Button variant="outline" className="hidden rounded-full sm:flex" onClick={signOut}>Log out</Button>
+            </> : <>
+              <Button asChild variant="outline" className="hidden rounded-full sm:flex"><Link to="/login">Log in</Link></Button>
+              <Button asChild className="hidden rounded-full sm:flex"><Link to="/signup">Join Nexus</Link></Button>
+            </>}
           </div>
         </header>
         <div className="relative flex gap-4 px-3 pb-20 sm:px-5 md:pb-5">
@@ -77,7 +90,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             {resourceNav.map((n) => <NavIcon key={n.to} n={n} path={path} />)}
           </nav>
           <main className="min-w-0 flex-1">
-            <p className="mb-4 px-1 text-xs text-muted-foreground">Preview workspace · Sample data</p>
+            <p className="mb-4 px-1 text-xs text-muted-foreground">{user ? `Signed in as ${name}` : "Sample library · Log in to save your own styles"}</p>
             {children}
           </main>
         </div>
@@ -99,7 +112,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           {panel === "notifications" ? <ul className="space-y-4">{activity.map((a) => <li key={a.who} className="border-b pb-3"><p className="text-sm font-semibold">{a.who}</p><p className="mt-1 text-sm text-muted-foreground">{a.what}</p><p className="mt-1 text-xs text-muted-foreground">{a.when} IST</p></li>)}</ul> : <div className="grid gap-1 sm:grid-cols-2">
             {(panel === "search" ? results : allNav).map((n) => <Button key={n.to} asChild variant="ghost" className="justify-start whitespace-normal text-left"><Link to={n.to} onClick={() => setPanel(null)}><n.icon />{n.label}</Link></Button>)}
             {panel === "search" && results.length === 0 && <p className="py-4 text-sm text-muted-foreground">No pages found for “{query}”.</p>}
-            {panel === "menu" && <><Button asChild variant="outline"><Link to="/login" onClick={() => setPanel(null)}>Log in</Link></Button><Button asChild><Link to="/signup" onClick={() => setPanel(null)}>Join Nexus</Link></Button></>}
+            {panel === "menu" && user && <Button variant="outline" onClick={signOut}>Log out</Button>}
+            {panel === "menu" && !user && <><Button asChild variant="outline"><Link to="/login" onClick={() => setPanel(null)}>Log in</Link></Button><Button asChild><Link to="/signup" onClick={() => setPanel(null)}>Join Nexus</Link></Button></>}
           </div>}
         </DialogContent>
       </Dialog>

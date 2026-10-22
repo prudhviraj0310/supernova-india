@@ -4,7 +4,7 @@ import { AuthPreview } from "@/components/AuthPreview";
 export const Route = createFileRoute("/signup")({
   head: () => ({ meta: [
     { title: "Join Nexus — Design systems for Indian teams" },
-    { name: "description", content: "Get to know Nexus with a sample design system workspace. Account registration is not yet available." },
+    { name: "description", content: "Create a free Nexus account to save your brand styles and ask the AI design helper." },
     { property: "og:title", content: "Join Nexus — Design systems for Indian teams" },
     { property: "og:description", content: "Explore your colours, components and code in a sample Nexus workspace." },
     { property: "og:type", content: "website" },
