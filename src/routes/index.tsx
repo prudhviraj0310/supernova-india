@@ -4,6 +4,7 @@ import { ArrowUpRight, Eye, EyeOff, RefreshCw, Download, Bot, Plus, Palette, Box
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/AppShell";
 import { activity, components, tokens } from "@/lib/data";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,13 +24,14 @@ const week = [40, 72, 100, 55, 48, 30, 22];
 
 function Home() {
   const [show, setShow] = useState(true);
+  const { name } = useAuth();
   const colours = tokens.filter((t) => t.type === "color");
   return (
     <div className="grid gap-4 lg:grid-cols-12">
       <div className="grid gap-4 lg:col-span-4">
         <Card>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Namaste, Prudhvi 👋 · Styles in your library</span>
+            <span className="text-sm text-muted-foreground">Namaste{name ? `, ${name}` : ""} 👋 · Styles in your library</span>
             <Link to="/styles" aria-label="Open styles" className="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground"><ArrowUpRight className="h-4 w-4" /></Link>
           </div>
           <div className="mt-4 flex items-center gap-3">
